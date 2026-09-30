@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Municipal operations · RoadWatch{% endblock %}
+{% block content %}
+<div class="municipal-heading">
+  <div>
+    <p class="eyebrow">ROADWATCH · MUNICIPAL OPERATIONS</p>
+    <h1>City road intelligence</h1>
+    <p>Monitor incoming hazards, prioritize repairs, and coordinate field response.</p>
+  </div>
+  <a href="{{ url_for('municipal.complaints') }}" class="btn btn-primary"><i class="bi bi-list-check me-1" aria-hidden="true"></i> Open complaint queue</a>
+</div>
+<section id="metrics" class="metrics" aria-label="Municipal complaint metrics">
+  {% for label in ['Total complaints','New reports','High priority','Critical','In progress','Completed'] %}
+  <div class="metric-card"><span>{{ label }}</span><b>—</b></div>
+  {% endfor %}
+</section>
+<div class="operations-grid">
+  <section class="panel">
+    <div class="panel-header mb-2"><div><span class="section-kicker">REPAIR PRIORITIZATION</span><h2 class="mt-1">Priority queue</h2></div><a class="panel-link" href="{{ url_for('municipal.complaints') }}">View queue <span aria-hidden="true">→</span></a></div>
+    <div id="priorityQueue" class="priority-list"><div class="loading">Ranking open complaints…</div></div>
+  </section>
+  <section class="panel">
+    <div class="map-heading"><div><span class="section-kicker">LOCATION INTELLIGENCE</span><h2 class="mt-1">Live complaint map</h2></div><div class="map-legend"><span><i class="map-dot"></i> Critical</span><span><i class="map-dot high"></i> High</span><span><i class="map-dot other"></i> Other</span></div></div>
+    <div id="operationsMap" class="operations-map" role="region" aria-label="Map of reported road complaints"></div>
+  </section>
+</div>
+<div class="chart-grid">
+  <section class="panel"><span class="section-kicker">DAMAGE PROFILE</span><h2 class="mt-1">Reports by damage type</h2><canvas id="damageChart" aria-label="Complaints by damage type"></canvas></section>
+  <section class="panel"><span class="section-kicker">RESPONSE STATUS</span><h2 class="mt-1">Operational workload</h2><canvas id="statusChart" aria-label="Complaints by status"></canvas></section>
+  <section class="panel"><span class="section-kicker">RISK PROFILE</span><h2 class="mt-1">Severity distribution</h2><canvas id="severityChart" aria-label="Complaints by severity"></canvas></section>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static',filename='js/ops-dashboard.js') }}"></script>
+{% endblock %}

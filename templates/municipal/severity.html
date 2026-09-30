@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Severity analysis · RoadWatch{% endblock %}
+{% block content %}
+<div class="municipal-heading"><div><p class="eyebrow">AI ROAD INTELLIGENCE · RISK REVIEW</p><h1>Severity analysis</h1><p>Understand recorded damage seriousness and inspect the reports with the highest severity scores.</p></div><a class="btn btn-outline-primary" href="{{ url_for('municipal.complaints') }}">Filter complaints</a></div>
+<section id="severityMetrics" class="metrics" aria-label="Severity overview"><div class="metric-card"><span>Loading severity data</span><b>—</b></div></section>
+<div class="chart-grid insight-charts"><section class="panel"><span class="section-kicker">RECORDED RISK</span><h2 class="mt-1">Severity levels</h2><canvas id="severityLevelChart" aria-label="Reports by severity level"></canvas></section><section class="panel"><span class="section-kicker">DAMAGE PROFILE</span><h2 class="mt-1">Damage types reported</h2><canvas id="severityDamageChart" aria-label="Reports by damage type"></canvas></section></div>
+<section class="panel mt-3"><div class="insight-toolbar"><div><span class="section-kicker">HIGHEST SEVERITY</span><h2 class="mt-1">Review queue</h2></div><label class="insight-filter">Severity level<select id="severityFilter" class="form-select"><option value="">All levels</option><option>CRITICAL</option><option>HIGH</option><option>MODERATE</option><option>LOW</option></select></label></div><div id="severityRows" class="priority-detail-list"><div class="loading">Loading severity-ranked complaints…</div></div></section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static',filename='js/municipal-insights.js') }}"></script>{% endblock %}

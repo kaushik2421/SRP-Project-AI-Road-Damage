@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Municipal workers · RoadWatch{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <div>
+    <p class="eyebrow">FIELD TEAM</p>
+    <h1>Workers and availability</h1>
+  </div>
+</div>
+<section class="panel">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead><tr><th>Name</th><th>Email</th><th>Specialization</th><th>Availability</th><th>Current load</th></tr></thead>
+      <tbody id="workerRows"></tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static',filename='js/admin.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,12 @@
+venv/
+__pycache__/
+*.py[cod]
+.env
+*.db
+uploads/original/*
+uploads/detected/*
+uploads/repair/before/*
+uploads/repair/after/*
+!uploads/**/.gitkeep
+models/road_damage/*.pt
+.pytest_cache/

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Municipal map · RoadWatch{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <div class="municipal-heading">
+    <p class="eyebrow">MUNICIPAL OPERATIONS · LOCATION INTELLIGENCE</p>
+    <h1>Live road issue map</h1>
+    <p>Filter actual complaints by risk, workflow, damage type, or road location.</p>
+  </div>
+</div>
+<section class="panel">
+  <div class="map-filter-bar">
+    <label>Search road or ID<input id="mapSearch" class="form-control" type="search" placeholder="Complaint, road, damage type"></label>
+    <label>Severity<select id="mapSeverity" class="form-select"><option value="">All levels</option><option>LOW</option><option>MODERATE</option><option>HIGH</option><option>CRITICAL</option></select></label>
+    <label>Priority<select id="mapPriority" class="form-select"><option value="">All levels</option><option>LOW</option><option>MEDIUM</option><option>HIGH</option><option>CRITICAL</option></select></label>
+    <label>Status<select id="mapStatus" class="form-select"><option value="">All statuses</option><option>SUBMITTED</option><option>UNDER_REVIEW</option><option>ASSIGNED</option><option>IN_PROGRESS</option><option>REPAIR_COMPLETED</option><option>VERIFIED</option><option>CLOSED</option></select></label>
+    <label>Damage type<select id="mapDamage" class="form-select"><option value="">All types</option></select></label>
+  </div>
+  <p id="mapResultCount" class="map-result-count" aria-live="polite">Loading complaints…</p>
+  <div id="adminMap" class="map large-map"></div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static',filename='js/municipal-map.js') }}"></script>
+{% endblock %}

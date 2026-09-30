@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}Municipal analytics · RoadWatch{% endblock %}
+{% block content %}
+<div class="municipal-heading"><div><p class="eyebrow">MUNICIPAL OPERATIONS · NETWORK PERFORMANCE</p><h1>Road network analytics</h1><p>Database-derived distributions across reported damage, severity, repair priority, and workflow status.</p></div><a class="btn btn-outline-primary" href="{{ url_for('municipal.complaints') }}">Explore complaints</a></div>
+<section id="analyticsMetrics" class="metrics" aria-label="Network summary"><div class="metric-card"><span>Loading analytics</span><b>—</b></div></section>
+<div class="chart-grid insight-charts"><section class="panel"><span class="section-kicker">DAMAGE PROFILE</span><h2 class="mt-1">Reports by damage type</h2><canvas id="analyticsDamage" aria-label="Reports by damage type"></canvas></section><section class="panel"><span class="section-kicker">RESPONSE</span><h2 class="mt-1">Workflow status</h2><canvas id="analyticsStatus" aria-label="Reports by workflow status"></canvas></section><section class="panel"><span class="section-kicker">AI ASSESSMENT</span><h2 class="mt-1">Severity distribution</h2><canvas id="analyticsSeverity" aria-label="Reports by severity"></canvas></section><section class="panel"><span class="section-kicker">REPAIR PLANNING</span><h2 class="mt-1">Priority distribution</h2><canvas id="analyticsPriority" aria-label="Reports by repair priority"></canvas></section></div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static',filename='js/municipal-insights.js') }}"></script>{% endblock %}

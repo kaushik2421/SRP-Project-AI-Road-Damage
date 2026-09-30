@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block public %}
+<main class="auth-page">
+  <form method="post" class="auth-card">
+    <a class="brand" href="/">ROAD<span>WATCH</span></a>
+    <h1>Municipal Authority Portal</h1>
+    <p class="text-muted">Authorized municipal personnel only</p>
+    {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+    <label>Official Email / Username
+      <input class="form-control" name="email" type="email" required autocomplete="username">
+    </label>
+    <label>Password
+      <input class="form-control" name="password" type="password" required autocomplete="current-password">
+    </label>
+    <div class="form-check mt-3">
+      <input class="form-check-input" type="checkbox" id="rememberMe">
+      <label class="form-check-label" for="rememberMe">Remember me</label>
+    </div>
+    <button class="btn btn-primary w-100 mt-3">Sign In</button>
+  </form>
+</main>
+{% endblock %}

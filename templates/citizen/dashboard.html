@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}My reports · RoadWatch{% endblock %}
+{% block content %}
+<section class="citizen-welcome citizen-dashboard">
+	<div>
+		<span class="section-kicker">CITIZEN ROADWATCH</span>
+		<h1>Welcome back, {{ current_user.full_name.split(' ')[0] }}.</h1>
+		<p>Your reports help crews identify road hazards and track repairs through to completion.</p>
+	</div>
+	<div class="citizen-actions">
+		<a class="btn btn-primary" href="{{ url_for('citizen.report') }}"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i> Report road damage</a>
+		<a class="btn btn-outline-primary" href="#recent">View my reports</a>
+	</div>
+</section>
+<section id="metrics" class="metrics" aria-label="Your report summary">
+	<div class="metric-card"><span>Loading reports</span><b>—</b></div>
+	<div class="metric-card"><span>Repair progress</span><b>—</b></div>
+	<div class="metric-card"><span>Resolved</span><b>—</b></div>
+</section>
+<div class="dashboard-grid">
+	<section class="panel" id="recent">
+		<div class="panel-header mb-2"><div><span class="section-kicker">YOUR ACTIVITY</span><h2 class="mt-1">Recent reports</h2></div><a class="panel-link" href="{{ url_for('citizen.report') }}">New report <span aria-hidden="true">→</span></a></div>
+		<div class="report-list"><div class="loading">Loading your reports…</div></div>
+	</section>
+	<aside class="panel impact-panel">
+		<span class="section-kicker">COMMUNITY IMPACT</span>
+		<h2 class="mt-1">Your road safety impact</h2>
+		<p class="small text-secondary">A live summary of the reports you have submitted.</p>
+		<div id="impactStats"><div class="loading">Calculating from your reports…</div></div>
+	</aside>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static',filename='js/ops-dashboard.js') }}"></script>{% endblock %}

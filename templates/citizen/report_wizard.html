@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Report road damage · RoadWatch{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <div><p class="eyebrow">CITIZEN REPORTING</p><h1>Report road damage</h1><p>Share clear evidence and a precise location so repair teams can respond.</p></div>
+</div>
+<section class="report-wizard-shell">
+  <ol class="wizard-steps" id="wizardSteps" aria-label="Report progress">
+    <li class="active" aria-current="step"><span>1</span><b>Photo</b></li>
+    <li><span>2</span><b>Location</b></li>
+    <li><span>3</span><b>Review</b></li>
+    <li><span>4</span><b>AI analysis</b></li>
+    <li><span>5</span><b>Submitted</b></li>
+  </ol>
+  <form id="reportForm" class="report-wizard" enctype="multipart/form-data" novalidate>
+    <section class="wizard-step" data-wizard-step="0">
+      <span class="section-kicker">STEP 01 · EVIDENCE</span><h2>Add a road photo</h2>
+      <p class="text-secondary">Use a clear, well-lit image that shows the damage and nearby road surface.</p>
+      <label class="drop-zone" id="dropZone" for="imageInput" tabindex="0">
+        <i class="bi bi-camera" aria-hidden="true"></i>
+        <strong id="uploadTitle">Drop a photo here or browse</strong>
+        <span>JPG, PNG, or WebP · Up to 10 MB</span>
+        <input id="imageInput" name="image" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Upload a road damage photo">
+        <img id="imagePreview" hidden alt="Preview of uploaded road damage evidence">
+      </label>
+      <div class="upload-actions"><small id="imageMeta" class="text-secondary">A photo is required to submit your report.</small><button id="removeImage" class="btn btn-sm btn-outline-secondary" type="button" hidden>Remove photo</button></div>
+      <div class="wizard-actions"><span></span><button class="btn btn-primary" type="button" data-next>Continue to location <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i></button></div>
+    </section>
+
+    <section class="wizard-step" data-wizard-step="1" hidden>
+      <span class="section-kicker">STEP 02 · LOCATION</span><h2>Pinpoint the road issue</h2>
+      <p class="text-secondary">Use GPS or select the exact point on the map. Road name and category help route the report.</p>
+      <div class="location-toolbar"><button id="locateButton" class="btn btn-outline-primary" type="button"><i class="bi bi-crosshair me-1" aria-hidden="true"></i> Use current location</button><span id="locationText" class="location-readout">No location selected. Click the map to place a pin.</span></div>
+      <div id="reportMap" class="map report-map" role="application" aria-label="Select the road damage location on the map"></div>
+      <input type="hidden" name="latitude" id="latitude"><input type="hidden" name="longitude" id="longitude">
+      <div class="row mt-3">
+        <div class="col-md-6"><label for="roadCategory">Road category</label><select class="form-select" name="road_category" id="roadCategory" required><option value="">Select category</option><option>Highway</option><option>Arterial</option><option>Collector</option><option>Local</option></select></div>
+        <div class="col-md-6"><label for="roadName">Road name</label><input class="form-control" name="road_name" id="roadName" minlength="2" required placeholder="Street or road name"></div>
+      </div>
+      <label for="description">What did you notice?</label><textarea class="form-control" name="description" id="description" rows="3" minlength="8" required placeholder="Describe the damage, nearby landmark, or safety risk."></textarea>
+      <div class="wizard-actions"><button class="btn btn-outline-secondary" type="button" data-back>Back</button><button class="btn btn-primary" type="button" data-next>Review report <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i></button></div>
+    </section>
+
+    <section class="wizard-step" data-wizard-step="2" hidden>
+      <span class="section-kicker">STEP 03 · REVIEW</span><h2>Review your report</h2>
+      <p class="text-secondary">Check the evidence and location before sending it for analysis.</p>
+      <div class="review-card"><img id="reviewImage" alt="Road evidence preview"><dl id="reviewDetails"></dl></div>
+      <div class="wizard-actions"><button class="btn btn-outline-secondary" type="button" data-back>Back</button><button class="btn btn-primary" id="submitReport" type="submit"><i class="bi bi-send me-1" aria-hidden="true"></i> Submit for analysis</button></div>
+    </section>
+  </form>
+
+  <section id="processing" class="analysis-progress" hidden aria-live="polite">
+    <span class="section-kicker">STEP 04 · AI ANALYSIS</span><h2>Processing your road report</h2><p>Saving the evidence and evaluating available detection results.</p>
+    <ol id="analysisStages"><li class="complete">Photo and location received</li><li class="current">Checking configured road-damage model</li><li>Calculating severity and repair priority</li><li>Checking for nearby duplicate reports</li></ol>
+    <div class="progress-track"><span></span></div>
+  </section>
+
+  <section id="reportResult" class="report-result" hidden aria-live="polite"></section>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static',filename='js/report-wizard.js') }}"></script>{% endblock %}

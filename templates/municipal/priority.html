@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}Priority management · RoadWatch{% endblock %}
+{% block content %}
+<div class="municipal-heading"><div><p class="eyebrow">MUNICIPAL OPERATIONS · RESPONSE PLANNING</p><h1>Intelligent priority management</h1><p>Review the highest-scored open complaints first. Scores reflect stored severity, road category, related reports, and report age.</p></div><a class="btn btn-outline-primary" href="{{ url_for('municipal.complaints') }}">All complaints</a></div>
+<section id="priorityMetrics" class="metrics" aria-label="Priority overview"><div class="metric-card"><span>Loading priority data</span><b>—</b></div></section>
+<section class="panel"><div class="insight-toolbar"><div><span class="section-kicker">SCORE-ORDERED QUEUE</span><h2 class="mt-1">Repair candidates</h2></div><label class="insight-filter">Priority level<select id="priorityFilter" class="form-select"><option value="">All levels</option><option>CRITICAL</option><option>HIGH</option><option>MEDIUM</option><option>LOW</option></select></label></div><div id="priorityRows" class="priority-detail-list"><div class="loading">Loading priority-ranked complaints…</div></div></section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static',filename='js/municipal-insights.js') }}"></script>{% endblock %}
